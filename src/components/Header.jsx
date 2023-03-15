@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+import './Header.css';
 
 class Header extends Component {
   constructor() {
@@ -30,7 +31,7 @@ class Header extends Component {
   render() {
     const { loading, nameUser } = this.state;
     return (
-      <header data-testid="header-component">
+      <header data-testid="header-component" className="header">
         <h1>Cabeçalho</h1>
         <nav>
           <Link to="/search" data-testid="link-to-search">
