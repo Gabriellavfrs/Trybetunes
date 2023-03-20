@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BsFillHeartFill } from 'react-icons/bs';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
@@ -21,13 +21,14 @@ class MusicCard extends Component {
     });
   }
 
-  saveFavoriteSong = async (music) => {
+  handleFavoriteSong = async (music) => {
     const { favorited } = this.state;
     this.setState({
       loading: true,
     });
     if (favorited) {
       this.setState({ favorited: false });
+      await removeSong(music);
     } else {
       await addSong(music);
       this.setState({ favorited: true });
@@ -56,7 +57,7 @@ class MusicCard extends Component {
               <input
                 data-testid={ `checkbox-music-${trackId}` }
                 type="checkbox"
-                onChange={ () => this.saveFavoriteSong(song) }
+                onChange={ () => this.handleFavoriteSong(song) }
                 checked={ favorited }
               />
               <BsFillHeartFill />
