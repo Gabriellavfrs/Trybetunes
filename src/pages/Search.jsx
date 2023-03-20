@@ -46,7 +46,7 @@ class Search extends Component {
     return (
       <div data-testid="page-search">
         <Header />
-        { loading === true ? <Loading /> : (
+        { loading ? <Loading /> : (
           <form>
             <input
               type="text"
