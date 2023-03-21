@@ -39,7 +39,8 @@ class MusicCard extends Component {
   };
 
   render() {
-    const { trackName, previewUrl, trackId, song } = this.props;
+    const { song } = this.props;
+    const { trackName, previewUrl, trackId } = song;
     const { loading, favorited } = this.state;
     return (
       <div>
@@ -70,11 +71,10 @@ class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
-  trackName: PropTypes.string.isRequired,
-  previewUrl: PropTypes.string.isRequired,
-  trackId: PropTypes.number.isRequired,
   song: PropTypes.shape({
     trackId: PropTypes.number,
+    trackName: PropTypes.string,
+    previewUrl: PropTypes.string,
   }).isRequired,
 };
 
