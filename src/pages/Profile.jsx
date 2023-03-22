@@ -51,11 +51,6 @@ class Profile extends Component {
     );
   };
 
-  // handleClick = () => {
-  //   const { history } = this.props;
-  //   history.push('/profile/edit');
-  // };
-
   render() {
     const { loading } = this.state;
     return (

@@ -23,12 +23,14 @@ class MusicCard extends Component {
 
   handleFavoriteSong = async (music) => {
     const { favorited } = this.state;
+    const { removeMusic } = this.props;
     this.setState({
       loading: true,
     });
     if (favorited) {
       this.setState({ favorited: false });
       await removeSong(music);
+      removeMusic(music.trackId);
     } else {
       await addSong(music);
       this.setState({ favorited: true });
@@ -71,6 +73,7 @@ class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
+  removeMusic: PropTypes.func.isRequired,
   song: PropTypes.shape({
     trackId: PropTypes.number,
     trackName: PropTypes.string,

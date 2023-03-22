@@ -27,6 +27,12 @@ class Favorites extends Component {
   //   console.log(prevState);
   // }
 
+  removeMusic = (id) => {
+    const { favoritedSongs } = this.state;
+    const currentFavoritedSongs = favoritedSongs.filter((song) => song.trackId !== id);
+    this.setState({ favoritedSongs: currentFavoritedSongs });
+  };
+
   renderFavoriteSongs = () => {
     const { favoritedSongs } = this.state;
     console.log(favoritedSongs);
@@ -35,6 +41,7 @@ class Favorites extends Component {
         { favoritedSongs.map((favoritedSong) => (<MusicCard
           key={ favoritedSong.trackId }
           song={ favoritedSong }
+          removeMusic={ this.removeMusic }
         />))}
       </section>
     );
