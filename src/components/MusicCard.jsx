@@ -23,14 +23,13 @@ class MusicCard extends Component {
 
   handleFavoriteSong = async (music) => {
     const { favorited } = this.state;
-    const { removeMusic } = this.props;
+    const { updateFavorites } = this.props;
     this.setState({
       loading: true,
     });
     if (favorited) {
       this.setState({ favorited: false });
       await removeSong(music);
-      removeMusic(music.trackId);
     } else {
       await addSong(music);
       this.setState({ favorited: true });
@@ -38,7 +37,14 @@ class MusicCard extends Component {
     this.setState({
       loading: false,
     });
+    await updateFavorites();
   };
+
+  // removeMusic = (id) => {
+  //   const { favoritedSongs } = this.state;
+  //   const currentFavoritedSongs = favoritedSongs.filter((song) => song.trackId !== id);
+  //   this.setState({ favoritedSongs: currentFavoritedSongs });
+  // };
 
   render() {
     const { song } = this.props;
@@ -71,9 +77,12 @@ class MusicCard extends Component {
     );
   }
 }
+MusicCard.defaultProps = {
+  updateFavorites: () => {},
+};
 
 MusicCard.propTypes = {
-  removeMusic: PropTypes.func.isRequired,
+  updateFavorites: PropTypes.func,
   song: PropTypes.shape({
     trackId: PropTypes.number,
     trackName: PropTypes.string,
