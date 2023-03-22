@@ -23,10 +23,6 @@ class Favorites extends Component {
     });
   }
 
-  // componentDidUpdate(__, prevState) {
-  //   console.log(prevState);
-  // }
-
   removeMusic = (id) => {
     const { favoritedSongs } = this.state;
     const currentFavoritedSongs = favoritedSongs.filter((song) => song.trackId !== id);

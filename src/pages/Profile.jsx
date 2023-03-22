@@ -37,7 +37,9 @@ class Profile extends Component {
       <div>
         <section>
           <img src={ image } alt={ name } data-testid="profile-image" />
-          <Link to="/profile/edit">Editar perfil</Link>
+          <Link to="/profile/edit">
+            Editar perfil
+          </Link>
         </section>
         <section>
           <h4>Nome</h4>

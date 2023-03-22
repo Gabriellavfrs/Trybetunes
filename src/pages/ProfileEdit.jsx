@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import { getUser } from '../services/userAPI';
-// import PropTypes from 'prop-types';
+import { getUser, updateUser } from '../services/userAPI';
 
 class ProfileEdit extends Component {
   constructor() {
@@ -13,7 +13,7 @@ class ProfileEdit extends Component {
       image: '',
       email: '',
       description: '',
-
+      isButtonDisabled: true,
     };
   }
 
@@ -32,8 +32,7 @@ class ProfileEdit extends Component {
       image: user.image,
       email: user.email,
       description: user.description,
-      isButtonDisabled: true,
-    });
+    }, this.validateInputs);
     // console.log(this.state.user);
   };
 
@@ -54,6 +53,7 @@ class ProfileEdit extends Component {
 
     const validateIsNotEmpty = !!name && !!image
       && !!email && !!description;
+    console.log(validateIsNotEmpty);
 
     if (validateIsNotEmpty) {
       this.setState({
@@ -66,25 +66,29 @@ class ProfileEdit extends Component {
     }
   };
 
-  // updateUserInfo = async () => {
-  //   const { history } = this.props;
-  //   const { name, email, image, description } = this.state;
-  //   this.setState({ loading: true });
-  //   await updateUser({
-  //     name: nameInput,
-  //     email: emailInput,
-  //     image: imageInput,
-  //     description: descriptionInput,
-  //   });
-  //   this.setState({ loading: false });
-  //   history.push('/profile');
-  // };
+  updateUserInfo = async () => {
+    const { history } = this.props;
+    const { name, email, image, description } = this.state;
+    this.setState({ loading: true });
+    await updateUser({
+      name,
+      email,
+      image,
+      description,
+    });
+    this.setState({ loading: false });
+    history.push('/profile');
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   renderForm = () => {
     const { name, image, email, description, isButtonDisabled } = this.state;
     return (
-      <form>
-        <img src="" alt="" />
+      <form onSubmit={ this.handleSubmit }>
+        <img src={ image } alt={ name } />
         <input
           type="text"
           name="image"
@@ -139,15 +143,17 @@ class ProfileEdit extends Component {
     return (
       <div data-testid="page-profile-edit">
         <Header />
-        Profile Edit
+        <h1>Profile edit</h1>
         { loading ? <Loading /> : this.renderForm() }
       </div>
     );
   }
 }
 
-// ProfileEdit.propTypes = {
-
-// };
+ProfileEdit.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default ProfileEdit;
