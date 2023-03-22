@@ -40,12 +40,6 @@ class MusicCard extends Component {
     await updateFavorites();
   };
 
-  // removeMusic = (id) => {
-  //   const { favoritedSongs } = this.state;
-  //   const currentFavoritedSongs = favoritedSongs.filter((song) => song.trackId !== id);
-  //   this.setState({ favoritedSongs: currentFavoritedSongs });
-  // };
-
   render() {
     const { song } = this.props;
     const { trackName, previewUrl, trackId } = song;
